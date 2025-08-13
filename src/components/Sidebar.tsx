@@ -29,7 +29,7 @@ export default function Sidebar() {
   return (
     <div
       className={`bg-[rgb(32,31,36)] duration-300 rounded-r-lg overflow-hidden relative ${
-        isOpen ? "w-96" : "w-[7.3rem]"
+        isOpen ? "w-80" : "w-[7.3rem]"
       }`}
     >
       <div className="m-10 border-l-4 border-l-transparent">
