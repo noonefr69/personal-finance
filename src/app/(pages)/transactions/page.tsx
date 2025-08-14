@@ -1,5 +1,13 @@
+import AddTransactions from "@/components/AddTransactions";
 import React from "react";
 
 export default function Transactions() {
-  return <div>Transactions</div>;
+  return (
+    <div>
+      <div className="flex items-center justify-between m-10">
+        <h1 className="text-4xl font-semibold">Transactions</h1>
+        <AddTransactions />
+      </div>
+    </div>
+  );
 }
