@@ -5,11 +5,33 @@ import dbConnect from "@/lib/db";
 import Transaction from "@/models/transaction";
 import { revalidatePath } from "next/cache";
 
+export async function getTransactionAction() {
+  const session = await auth();
+
+  if (!session?.user?.email) {
+    throw new Error("Unauthorized");
+  }
+
+  await dbConnect();
+
+  const getTransaction = await Transaction.find({
+    userEmail: session?.user?.email,
+  }).lean();
+
+  return getTransaction.map((t: any) => ({
+    id: t._id.toString(),
+    transactionTitle: t.transactionTitle,
+    category: t.category,
+    amount: t.amount,
+    date: t.date instanceof Date ? t.date.toISOString() : String(t.date),
+  }));
+}
+
 export async function addTransactionAction(formData: FormData) {
   const transactionTitle = formData.get("transaction");
   const date = formData.get("date");
   const category = formData.get("category");
-  const amount = formData.get("amount");
+  const amount = Number(formData.get("amount"));
 
   if (!transactionTitle || !date || !category || !amount) {
     throw new Error("No title provided");
@@ -31,5 +53,5 @@ export async function addTransactionAction(formData: FormData) {
     userEmail: session.user.email,
   });
 
-  revalidatePath("/");
+  revalidatePath("/transactions");
 }

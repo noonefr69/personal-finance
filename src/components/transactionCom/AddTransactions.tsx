@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Dialog,
   DialogContent,
@@ -9,8 +11,19 @@ import {
 import { DatePickerDemo } from "./DatePicker";
 import Selector from "./Selector";
 import { addTransactionAction } from "@/actions/handleTransaction";
+import { useTransition } from "react";
 
 export default function AddTransactions() {
+  const [isPending, startTransition] = useTransition();
+
+  function handleChange(formData: FormData) {
+    startTransition(() => {
+      addTransactionAction(formData).catch((err) => {
+        console.log(err.message || "Something went wrong");
+      });
+    });
+  }
+
   return (
     <div>
       <Dialog>
@@ -20,7 +33,7 @@ export default function AddTransactions() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Add New Transaction</DialogTitle>
-            <form action={addTransactionAction}>
+            <form action={handleChange}>
               <div className="flex flex-col space-y-2">
                 <label
                   htmlFor="transaction"
@@ -65,7 +78,13 @@ export default function AddTransactions() {
                 type="submit"
                 className=" mt-8 cursor-pointer w-full flex items-center justify-center gap-3 bg-gray-900 text-white rounded-lg py-3 px-4 text-md font-semibold shadow-sm hover:opacity-80 transition"
               >
-                Submit
+                {isPending ? (
+                  <div className="flex justify-center items-center">
+                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-300 mr-4"></div>
+                  </div>
+                ) : (
+                  "Submit"
+                )}
               </button>
             </form>
           </DialogHeader>
