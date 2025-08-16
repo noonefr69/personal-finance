@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { DatePickerDemo } from "./DatePicker";
 import Selector from "./Selector";
-import { addTransactionAction } from "@/actions/addTransactionAction";
+import { addTransactionAction } from "@/actions/handleTransaction";
 
 export default function AddTransactions() {
   return (
