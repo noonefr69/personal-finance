@@ -8,6 +8,8 @@ export default function Transactions() {
         <h1 className="text-4xl font-semibold">Transactions</h1>
         <AddTransactions />
       </div>
+
+      <div>No data Yet</div>
     </div>
   );
 }
