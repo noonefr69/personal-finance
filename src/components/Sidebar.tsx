@@ -28,7 +28,7 @@ export default function Sidebar() {
 
   return (
     <div
-      className={`bg-[rgb(32,31,36)] duration-300 rounded-r-lg overflow-hidden relative ${
+      className={`bg-[rgb(32,31,36)] duration-300 rounded-r-lg overflow-hidden fixed top-0 left-0 bottom-0 ${
         isOpen ? "w-80" : "w-[7.3rem]"
       }`}
     >

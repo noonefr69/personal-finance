@@ -1,9 +1,21 @@
+import { getTransactionAction } from "@/actions/handleTransaction";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import { AiFillDollarCircle } from "react-icons/ai";
 import { TiArrowSortedDown } from "react-icons/ti";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
-export default function Home() {
+export default async function Home() {
+  const getTransaction = await getTransactionAction();
+
   return (
     <div className="flex h-screen">
       <div className="w-full mx-10">
@@ -26,9 +38,9 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="columns-2 m-10 space-x-2 space-y-5">
+        <div className="m-10 columns-2 space-y-5">
           {/* Pots */}
-          <div className="bg-white rounded-lg p-7">
+          <div className="bg-white rounded-lg p-7 break-inside-avoid">
             <nav className="flex items-center justify-between ">
               <h1 className="font-semibold text-xl">Pots</h1>
               <Link
@@ -47,7 +59,7 @@ export default function Home() {
             </div>
           </div>
           {/* budgets */}
-          <div className="bg-white rounded-lg p-7 min-h-64">
+          <div className="bg-white rounded-lg p-7 min-h-72 break-inside-avoid">
             <nav className="flex items-center justify-between ">
               <h1 className="font-semibold text-xl">Budgets</h1>
               <Link
@@ -64,7 +76,7 @@ export default function Home() {
             </div>
           </div>
           {/* Transactions */}
-          <div className="bg-white rounded-lg p-7 h-60">
+          <div className="bg-white rounded-lg p-7 break-inside-avoid">
             <nav className="flex items-center justify-between ">
               <h1 className="font-semibold text-xl">Transactions</h1>
               <Link
@@ -74,14 +86,58 @@ export default function Home() {
                 See Details <TiArrowSortedDown className="-rotate-90" />
               </Link>
             </nav>
-            <div className="flex items-center gap-4 my-4 w-1/2 rounded-lg">
-              <span className="flex items-center gap-2 text-[#8f8f8f] font-semibold">
-                No Data Provided.
-              </span>
+            <div className="flex items-center gap-4 mt-4 py-7 rounded-lg">
+              <Table className="w-full">
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className=" text-[#939393] p-4">
+                      Recipient / Sender
+                    </TableHead>
+                    <TableHead className=" text-[#939393] p-4">
+                      Category
+                    </TableHead>
+                    <TableHead className=" text-[#939393] p-4">
+                      Transaction Date
+                    </TableHead>
+                    <TableHead className="text-right text-[#939393] p-4">
+                      Amount
+                    </TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody className="">
+                  {getTransaction
+                    .sort(
+                      (a, b) =>
+                        new Date(b.date).getTime() - new Date(a.date).getTime()
+                    )
+                    .map((transaction) => {
+                      return (
+                        <TableRow
+                          key={transaction.id}
+                          className="hover:bg-gray-100 transition-colors"
+                        >
+                          <TableCell className="font-medium text-[black] p-4 text-[17px]">
+                            {transaction.transactionTitle}
+                          </TableCell>
+                          <TableCell className=" text-[#818181] p-4">
+                            {transaction.category}
+                          </TableCell>
+                          <TableCell className=" text-[#818181] p-4">
+                            {transaction.date.slice(0, 10)}
+                          </TableCell>
+                          <TableCell className="text-right text-green-600 font-medium text-[17px] p-4">
+                            +${transaction.amount.toFixed(2)}
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })
+                    .slice(0, 4)}
+                </TableBody>
+              </Table>
             </div>
           </div>{" "}
           {/* Recurring Bille */}
-          <div className="bg-white flex flex-col rounded-lg p-7 ">
+          <div className="bg-white flex flex-col rounded-lg p-7 break-inside-avoid ">
             <nav className="flex items-center justify-between ">
               <h1 className="font-semibold text-xl">Recurring Bills</h1>
               <Link
