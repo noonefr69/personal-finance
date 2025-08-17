@@ -78,9 +78,9 @@ export default function TransactionTable() {
 
   if (loading)
     return (
-      <div className="flex justify-center items-center rounded-lg h-[calc(100vh-20vh)] bg-white">
+      <div className="flex justify-center items-center m-10 p-7 rounded-lg h-[calc(100vh-20vh)] bg-white">
+        {/* <span className="text-gray-700 text-lg">Loading transactions...</span> */}
         <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-gray-900 mr-4"></div>
-        <span className="text-gray-700 text-lg">Loading transactions...</span>
       </div>
     );
 
