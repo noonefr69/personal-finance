@@ -38,7 +38,7 @@ export default async function Home() {
           </div>
         </div>
 
-        <div className="m-10 columns-2 space-y-5">
+        <div className="m-10 pb-10 columns-2 space-y-5">
           {/* Pots */}
           <div className="bg-white rounded-lg p-7 break-inside-avoid">
             <nav className="flex items-center justify-between ">
@@ -88,22 +88,6 @@ export default async function Home() {
             </nav>
             <div className="flex items-center gap-4 mt-4 py-7 rounded-lg">
               <Table className="w-full">
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className=" text-[#939393] p-4">
-                      Recipient / Sender
-                    </TableHead>
-                    <TableHead className=" text-[#939393] p-4">
-                      Category
-                    </TableHead>
-                    <TableHead className=" text-[#939393] p-4">
-                      Transaction Date
-                    </TableHead>
-                    <TableHead className="text-right text-[#939393] p-4">
-                      Amount
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
                 <TableBody className="">
                   {getTransaction
                     .sort(

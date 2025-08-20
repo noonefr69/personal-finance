@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export default function Selector() {
+export default function CategorySelector() {
   const [value, setValue] = React.useState("");
 
   return (

@@ -3,13 +3,12 @@
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { DatePickerDemo } from "./DatePicker";
-import Selector from "./Selector";
+import Selector from "../CategorySelector";
 import { addTransactionAction } from "@/actions/handleTransaction";
 import { useTransition } from "react";
 
