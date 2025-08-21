@@ -3,10 +3,8 @@ import { getTransactionAction } from "@/actions/handleTransaction";
 import AddBedgets from "@/components/budgets/AddBedgets";
 import DropDownBudget from "@/components/budgets/DropDownBudget";
 import { ChartPieDonutText } from "@/components/budgets/PieChart";
-import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import Link from "next/link";
 import React from "react";
-import { BsThreeDots } from "react-icons/bs";
 import { TiArrowSortedDown } from "react-icons/ti";
 
 export default async function Budgets() {
@@ -63,6 +61,7 @@ export default async function Budgets() {
             })}
           </div>
         </div>
+
         {/* DATA */}
         <div className="col-span-6 space-y-5 pb-10">
           {getBedgets.map((b) => {
@@ -78,7 +77,12 @@ export default async function Budgets() {
                     />{" "}
                     <h1 className="font-semibold text-lg">{b.category}</h1>
                   </div>
-                  <DropDownBudget category={b.category} id={b.id} />
+                  <DropDownBudget
+                    category={b.category}
+                    id={b.id}
+                    theme={b.theme}
+                    spend={b.spend}
+                  />
                 </div>
 
                 <div>
@@ -133,30 +137,36 @@ export default async function Budgets() {
                   </div>
 
                   <div className="">
-                    {getTransactions
-                      .filter((t) => {
-                        return t.category === b.category;
-                      })
-                      .map((t) => {
-                        return (
-                          <div
-                            className="py-2 flex items-center justify-between border-b"
-                            key={t.id}
-                          >
-                            <div className="font-medium">
-                              {t.transactionTitle}
+                    {getTransactions.filter((t) => {
+                      return t.category === b.category;
+                    }).length == 0 ? (
+                      <div className="text-muted-foreground text-center mt-4">You haven't made any spendings yet.</div>
+                    ) : (
+                      getTransactions
+                        .filter((t) => {
+                          return t.category === b.category;
+                        })
+                        .map((t) => {
+                          return (
+                            <div
+                              className="py-2 flex items-center justify-between border-b"
+                              key={t.id}
+                            >
+                              <div className="font-medium">
+                                {t.transactionTitle}
+                              </div>
+                              <div className="flex flex-col items-end">
+                                <h1 className="font-medium text-green-600 text-xl">
+                                  ${t.amount.toFixed(2)}
+                                </h1>
+                                <span className="text-muted-foreground text-sm">
+                                  {t.date.slice(0, 10)}
+                                </span>
+                              </div>
                             </div>
-                            <div className="flex flex-col items-end">
-                              <h1 className="font-medium text-green-600 text-xl">
-                                ${t.amount.toFixed(2)}
-                              </h1>
-                              <span className="text-muted-foreground text-sm">
-                                {t.date.slice(0, 10)}
-                              </span>
-                            </div>
-                          </div>
-                        );
-                      })}
+                          );
+                        })
+                    )}
                   </div>
                 </div>
               </div>

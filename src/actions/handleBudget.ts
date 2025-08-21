@@ -62,3 +62,34 @@ export async function deleteBudget(id: string) {
 
   revalidatePath("/budgets");
 }
+
+export async function updateBudget(
+  id: string,
+  newCategory: string,
+  newSpend: string,
+  newTheme: string
+) {
+  const session = await auth();
+
+  if (!session?.user?.email) {
+    throw new Error("Unauthorized");
+  }
+
+  if (!id || !newCategory.trim() || !newSpend || !newTheme) {
+    throw new Error("Invalid input");
+  }
+
+  await dbConnect();
+
+  const updated = await Budget.findOneAndUpdate(
+    { _id: id, userEmail: session.user.email },
+    { category: newCategory, spend: newSpend, theme: newTheme },
+    { new: true }
+  );
+
+  if (!updated) {
+    throw new Error("Todo not found or unauthorized");
+  }
+
+  revalidatePath("/");
+}
