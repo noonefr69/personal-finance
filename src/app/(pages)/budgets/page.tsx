@@ -1,6 +1,6 @@
 import { getBudgetsAction } from "@/actions/handleBudget";
 import { getTransactionAction } from "@/actions/handleTransaction";
-import AddBedgets from "@/components/budgets/AddBedgets";
+import AddBedgets from "@/components/budgets/AddBudgets";
 import DropDownBudget from "@/components/budgets/DropDownBudget";
 import { ChartPieDonutText } from "@/components/budgets/PieChart";
 import Link from "next/link";

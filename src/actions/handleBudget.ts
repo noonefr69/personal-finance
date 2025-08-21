@@ -91,5 +91,5 @@ export async function updateBudget(
     throw new Error("Todo not found or unauthorized");
   }
 
-  revalidatePath("/");
+  revalidatePath("/budgets");
 }
