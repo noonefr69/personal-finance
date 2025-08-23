@@ -53,6 +53,30 @@ export async function addPot(formData: FormData) {
   revalidatePath("/pots");
 }
 
+export async function withdrawMoneyPot(id: string, amount: number) {
+  const session = await auth();
+
+  if (!session?.user?.email) throw new Error("Unauthorized");
+  if (!id || !amount) throw new Error("Invalid input");
+
+  await dbConnect();
+
+  const updated = await Pots.findOneAndUpdate(
+    { _id: id, userEmail: session?.user?.email },
+    { $inc: { amountEx: -amount } }, // 👈 کم کردن
+    { new: true }
+  );
+
+  if (!updated) throw new Error("Pot not found or unauthorized");
+
+  if (updated.amountEx < 0) {
+    updated.amountEx = 0;
+    await updated.save();
+  }
+
+  revalidatePath("/pots");
+}
+
 export async function updateAddMoneyPot(id: string, newAmountEx: number) {
   const session = await auth();
 

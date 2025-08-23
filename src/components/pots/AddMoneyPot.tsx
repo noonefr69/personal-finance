@@ -128,7 +128,7 @@ export default function AddMoneyPot({
           <button
             type="submit"
             disabled={amountEx >= amountPot}
-            className=" mt-6 disabled:cursor-no-drop cursor-pointer w-full flex items-center justify-center gap-3 bg-gray-900 text-white rounded-lg py-3 px-4 text-md font-semibold shadow-sm hover:opacity-80 transition"
+            className=" mt-6 disabled:opacity-50 disabled:cursor-no-drop cursor-pointer w-full flex items-center justify-center gap-3 bg-gray-900 text-white rounded-lg py-3 px-4 text-md font-semibold shadow-sm hover:opacity-80 transition"
           >
             {isPending ? (
               <div className="flex justify-center items-center">
