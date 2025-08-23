@@ -14,6 +14,11 @@ const potSchema = new Schema(
       type: Number,
       required: true,
     },
+    amountEx: {
+      type: Number,
+      default: 0,
+      required: true,
+    },
     theme: {
       type: String,
       required: true,

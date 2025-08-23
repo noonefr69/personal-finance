@@ -67,7 +67,7 @@ export default function DropDownPot({
   function handleUpdate() {
     console.log(potNamePlace, amountPotPlace, theme);
     startTransition(() => {
-      updatePot(id, potNamePlace, amountPotPlace.toString(), themePlace);
+      updatePot(id, potNamePlace, amountPotPlace, themePlace);
     });
   }
 

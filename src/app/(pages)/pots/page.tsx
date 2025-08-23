@@ -8,7 +8,6 @@ import WithdrawPot from "@/components/pots/WithdrawPot";
 export default async function Pots() {
   const getPots = await getPotsAction();
 
-  console.log(getPots);
   return (
     <div>
       <div className="flex items-center justify-between m-10">
@@ -39,26 +38,51 @@ export default async function Pots() {
               <div>
                 <div className="flex items-center justify-between">
                   <span className="text-gray-500 font-medium">Total Saved</span>
-                  <h1 className="text-4xl font-bold">$0.00</h1>
+                  <h1 className="text-4xl font-bold">
+                    $
+                    {p.amountEx >= p.amountPot
+                      ? p.amountPot.toFixed(2)
+                      : p.amountEx.toFixed(2)}
+                  </h1>
                 </div>
 
-                <div className="h-2 mt-5 rounded-lg bg-gray-300 flex flex-col items-start justify-center">
+                <div className="h-2 mt-5 rounded-lg bg-gray-100 flex flex-col overflow-hidden items-start justify-center">
                   <div
-                    style={{ backgroundColor: p.theme || "black" }}
-                    className="h-2 w-10 rounded-lg"
+                    style={{
+                      backgroundColor: p.theme || "black",
+                      width: `${(p.amountEx * 100) / p.amountPot}%`,
+                    }}
+                    className="h-2 duration-300 rounded-lg"
                   />
                 </div>
 
                 <div className="flex mt-4 items-center justify-between">
-                  <span className="text-muted-foreground ">0.00%</span>
+                  <span className="text-muted-foreground ">
+                    {p.amountEx >= p.amountPot
+                      ? "100.00"
+                      : ((p.amountEx * 100) / p.amountPot).toFixed(2)}
+                    %
+                  </span>
                   <span className="text-muted-foreground ">
                     Target of ${p.amountPot}
                   </span>
                 </div>
 
                 <div className="flex items-center gap-4 mt-9">
-                  <AddMoneyPot />
-                  <WithdrawPot />
+                  <AddMoneyPot
+                    potName={p.potName}
+                    amountPot={p.amountPot}
+                    id={p.id}
+                    theme={p.theme}
+                    amountEx={p.amountEx}
+                  />
+                  <WithdrawPot
+                    potName={p.potName}
+                    amountPot={p.amountPot}
+                    id={p.id}
+                    theme={p.theme}
+                    amountEx={p.amountEx}
+                  />
                 </div>
               </div>
             </div>

@@ -21,6 +21,7 @@ export async function getPotsAction() {
     potName: p.potName,
     amountPot: p.amountPot,
     theme: p.theme,
+    amountEx: p.amountEx,
   }));
 }
 
@@ -45,8 +46,33 @@ export async function addPot(formData: FormData) {
     potName,
     amountPot,
     theme,
-    userEmail: session.user.email,
+    amountEx: 0,
+    userEmail: session?.user?.email,
   });
+
+  revalidatePath("/pots");
+}
+
+export async function updateAddMoneyPot(id: string, newAmountEx: number) {
+  const session = await auth();
+
+  if (!session?.user?.email) throw new Error("Unauthorized");
+
+  if (!id || !newAmountEx) {
+    throw new Error("Invalid input");
+  }
+
+  await dbConnect();
+
+  const updated = await Pots.findOneAndUpdate(
+    { _id: id, userEmail: session?.user?.email },
+    { $inc: { amountEx: newAmountEx } },
+    { new: true }
+  );
+
+  if (!updated) {
+    throw new Error("Todo not found or unauthorized");
+  }
 
   revalidatePath("/pots");
 }
@@ -54,7 +80,7 @@ export async function addPot(formData: FormData) {
 export async function updatePot(
   id: string,
   newPotName: string,
-  newAmountPot: string,
+  newAmountPot: number,
   newTheme: string
 ) {
   const session = await auth();
