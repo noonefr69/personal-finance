@@ -133,7 +133,7 @@ export default function TransactionTable() {
         </div>
       </div>
       <Table className="">
-        <TableCaption>Transactions</TableCaption>
+        <TableCaption>{transactions.length == 0 ? "No Data Provided" : "Transaction"}</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className=" text-[#939393] p-4">

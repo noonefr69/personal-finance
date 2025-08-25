@@ -114,36 +114,41 @@ export default async function Home() {
               </Link>
             </nav>
             <div className=" w-full grid grid-cols-10 gap-4 my-4 rounded-lg ">
-              {/* <span className="flex items-center gap-2 text-[#8f8f8f] font-semibold">
-                No Data Provided.
-              </span> */}
-              <div className="h-fit col-span-6">
-                <ChartPieDonutText
-                  transactionsByCategory={transactionsByCategory}
-                />
-              </div>
-              <div className="pb-7 col-span-3 space-y-2">
-                {getBudgets
-                  .map((b) => {
-                    return (
-                      <div key={b.id} className="flex items-center gap-2">
-                        <div
-                          className="w-1 h-10 rounded-lg"
-                          style={{ backgroundColor: b.theme || "black" }}
-                        />
-                        <div>
-                          <h1 className="text-muted-foreground">
-                            {b.category}
-                          </h1>
-                          <span className="font-medium">
-                            ${b.spend.toFixed(2)}
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })
-                  .slice(0, 4)}
-              </div>
+              {getBudgets.length == 0 ? (
+                <span className="flex px-7 py-4 text-nowrap items-center gap-2 text-[#8f8f8f] font-semibold">
+                  No Data Provided.
+                </span>
+              ) : (
+                <>
+                  <div className="h-fit col-span-6">
+                    <ChartPieDonutText
+                      transactionsByCategory={transactionsByCategory}
+                    />
+                  </div>
+                  <div className="pb-7 col-span-3 space-y-2">
+                    {getBudgets
+                      .map((b) => {
+                        return (
+                          <div key={b.id} className="flex items-center gap-2">
+                            <div
+                              className="w-1 h-10 rounded-lg"
+                              style={{ backgroundColor: b.theme || "black" }}
+                            />
+                            <div>
+                              <h1 className="text-muted-foreground">
+                                {b.category}
+                              </h1>
+                              <span className="font-medium">
+                                ${b.spend.toFixed(2)}
+                              </span>
+                            </div>
+                          </div>
+                        );
+                      })
+                      .slice(0, 4)}
+                  </div>
+                </>
+              )}
             </div>
           </div>
           {/* Transactions */}
@@ -158,43 +163,50 @@ export default async function Home() {
               </Link>
             </nav>
             <div className="flex items-center gap-4 mt-4 py-7 rounded-lg">
-              <Table className="w-full">
-                <TableBody className="">
-                  {getTransaction
-                    .sort(
-                      (a, b) =>
-                        new Date(b.date).getTime() - new Date(a.date).getTime()
-                    )
-                    .map((transaction) => {
-                      return (
-                        <TableRow
-                          key={transaction.id}
-                          className="hover:bg-gray-100 transition-colors"
-                        >
-                          <TableCell className="font-medium text-[black] p-4 text-[17px]">
-                            {transaction.transactionTitle}
-                          </TableCell>
-                          <TableCell className=" text-[#818181] p-4">
-                            {transaction.category}
-                          </TableCell>
-                          <TableCell className=" text-[#818181] p-4">
-                            {transaction.date.slice(0, 10)}
-                          </TableCell>
-                          <TableCell className="text-right text-green-600 font-medium text-[17px] p-4">
-                            +${transaction.amount.toFixed(2)}
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })
-                    .slice(0, 4)}
-                </TableBody>
-              </Table>
+              {getTransaction.length == 0 ? (
+                <span className="flex  text-nowrap items-center gap-2 text-[#8f8f8f] font-semibold">
+                  No Data Provided.
+                </span>
+              ) : (
+                <Table className="w-full">
+                  <TableBody className="">
+                    {getTransaction
+                      .sort(
+                        (a, b) =>
+                          new Date(b.date).getTime() -
+                          new Date(a.date).getTime()
+                      )
+                      .map((transaction) => {
+                        return (
+                          <TableRow
+                            key={transaction.id}
+                            className="hover:bg-gray-100 transition-colors"
+                          >
+                            <TableCell className="font-medium text-[black] p-4 text-[17px]">
+                              {transaction.transactionTitle}
+                            </TableCell>
+                            <TableCell className=" text-[#818181] p-4">
+                              {transaction.category}
+                            </TableCell>
+                            <TableCell className=" text-[#818181] p-4">
+                              {transaction.date.slice(0, 10)}
+                            </TableCell>
+                            <TableCell className="text-right text-green-600 font-medium text-[17px] p-4">
+                              +${transaction.amount.toFixed(2)}
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })
+                      .slice(0, 4)}
+                  </TableBody>
+                </Table>
+              )}
             </div>
           </div>{" "}
           {/* Recurring Bille */}
           <div className="bg-white flex flex-col rounded-lg p-7 break-inside-avoid ">
             <nav className="flex items-center justify-between ">
-              <h1 className="font-semibold text-xl">Recurring Bills</h1>
+              <h1 className="font-semibold text-xl">Recurring Bills <span className="text-muted-foreground text-sm">(Demo)</span></h1>
               <Link
                 className="flex items-center gap-2 text-[#8f8f8f] font-semibold hover:underline"
                 href={`/recurring-bills`}
