@@ -56,9 +56,25 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function ChartPieDonutText() {
-  const totalVisitors = React.useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.visitors, 0);
+export function ChartPieDonutText({ transactionsByCategory }: any) {
+  const [chartData, setChartData] = React.useState<any[]>([]);
+
+  const totalSpend = Object.values(transactionsByCategory).reduce(
+    (a, b) => a + b,
+    0
+  );
+
+  React.useEffect(() => {
+    async function fetchData() {
+      const budgets = await getBudgetsAction();
+      const format = budgets.map((b: any) => ({
+        name: b.category,
+        value: b.spend,
+        fill: b.theme || "var(--chart-1)",
+      }));
+      setChartData(format);
+    }
+    fetchData();
   }, []);
 
   return (
@@ -75,8 +91,8 @@ export function ChartPieDonutText() {
             />
             <Pie
               data={chartData}
-              dataKey="visitors"
-              nameKey="browser"
+              dataKey="value"
+              nameKey="name"
               innerRadius={60}
               strokeWidth={5}
             >
@@ -95,14 +111,16 @@ export function ChartPieDonutText() {
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {totalVisitors.toLocaleString()}
+                          ${totalSpend.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          Visitors
+                          of $
+                          {chartData.reduce((acc, sec) => acc + sec.value, 0)}{" "}
+                          limit
                         </tspan>
                       </text>
                     );

@@ -37,10 +37,6 @@ export default function AddMoneyPot({
     });
   }
 
-  // console.log(
-  //   `AmountEx: ${amountEx} || AmountExU: ${amountExU} || AmountPot: ${amountPot}`
-  // );
-
   return (
     <Dialog>
       <DialogTrigger className="bg-[rgb(248,244,240)] w-full rounded-lg py-4 font-medium duration-300 hover:bg-transparent cursor-pointer border-2 border-transparent hover:border-black">
