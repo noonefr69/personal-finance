@@ -165,8 +165,15 @@ export default async function Budgets() {
                                   {t.transactionTitle}
                                 </div>
                                 <div className="flex flex-col items-end">
-                                  <h1 className="font-medium text-green-600 text-xl">
-                                    ${t.amount.toFixed(2)}
+                                  <h1
+                                    className={`font-medium text-xl ${
+                                      t.amount > 0
+                                        ? "text-green-600"
+                                        : "text-red-600"
+                                    }`}
+                                  >
+                                    {t.amount > 0 ? "+" : "-"}$
+                                    {Math.abs(t.amount).toFixed(2)}
                                   </h1>
                                   <span className="text-muted-foreground text-sm">
                                     {t.date.slice(0, 10)}

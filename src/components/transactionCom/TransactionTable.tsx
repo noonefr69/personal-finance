@@ -133,7 +133,9 @@ export default function TransactionTable() {
         </div>
       </div>
       <Table className="">
-        <TableCaption>{transactions.length == 0 ? "No Data Provided" : "Transaction"}</TableCaption>
+        <TableCaption>
+          {transactions.length == 0 ? "No Data Provided" : "Transaction"}
+        </TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className=" text-[#939393] p-4">
@@ -164,8 +166,13 @@ export default function TransactionTable() {
                 <TableCell className=" text-[#818181] p-4">
                   {transaction.date.slice(0, 10)}
                 </TableCell>
-                <TableCell className="text-right text-green-600 font-medium text-[17px] p-4">
-                  +${transaction.amount.toFixed(2)}
+                <TableCell
+                  className={`text-right font-medium text-[17px] p-4 ${
+                    transaction.amount > 0 ? "text-green-600" : "text-red-600"
+                  } !important`}
+                >
+                  {transaction.amount > 0 ? "+" : "-"}$
+                  {Math.abs(transaction.amount).toFixed(2)}
                 </TableCell>
               </TableRow>
             );

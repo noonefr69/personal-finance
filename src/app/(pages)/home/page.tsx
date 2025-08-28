@@ -15,8 +15,16 @@ import {
 import { getPotsAction } from "@/actions/handlePot";
 import { ChartPieDonutText } from "@/components/budgets/PieChart";
 import { getBudgetsAction } from "@/actions/handleBudget";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
+  const session = await auth();
+
+  if (!session) {
+    redirect("/");
+  }
+
   const getTransaction = await getTransactionAction();
   const getPots = await getPotsAction();
   const getBudgets = await getBudgetsAction();
@@ -28,6 +36,9 @@ export default async function Home() {
     acc[transaction.category] += transaction.amount;
     return acc;
   }, {} as Record<string, number>);
+  const spent = transactionsByCategory;
+
+  console.log(getTransaction, getBudgets, spent);
 
   return (
     <div className="flex h-screen">
@@ -39,20 +50,43 @@ export default async function Home() {
         <div className="m-10 grid grid-cols-3 gap-4">
           <div className="bg-[rgb(32,31,36)] text-white p-7 rounded-lg space-y-2">
             <h1 className="font-semibold">Current Balance</h1>
-            <span className="font-bold text-4xl">$0.00</span>
+            <span className="font-bold text-4xl">
+              $
+              {(
+                getTransaction.reduce(
+                  (acc, sec) => (sec.amount > 0 ? acc + sec.amount : acc),
+                  0
+                ) +
+                getTransaction.reduce(
+                  (acc, sec) => (sec.amount < 0 ? acc + sec.amount : acc),
+                  0
+                )
+              ).toFixed(2)}
+            </span>
           </div>
           <div className="bg-[white] p-7 rounded-lg space-y-2">
             <h1 className="font-semibold">Income</h1>
             <span className="font-bold text-4xl">
               $
               {getTransaction
-                .reduce((acc, sec) => acc + sec.amount, 0)
+                .reduce(
+                  (acc, sec) => (sec.amount > 0 ? acc + sec.amount : acc),
+                  0
+                )
                 .toFixed(2)}
             </span>
           </div>
           <div className="bg-[white] p-7 rounded-lg space-y-2">
             <h1 className="font-semibold">Expenses</h1>
-            <span className="font-bold text-4xl">$0.00</span>
+            <span className="font-bold text-4xl">
+              $
+              {Math.abs(
+                getTransaction.reduce(
+                  (acc, sec) => (sec.amount < 0 ? acc + sec.amount : acc),
+                  0
+                )
+              ).toFixed(2)}
+            </span>
           </div>
         </div>
 
@@ -206,7 +240,10 @@ export default async function Home() {
           {/* Recurring Bille */}
           <div className="bg-white flex flex-col rounded-lg p-7 break-inside-avoid ">
             <nav className="flex items-center justify-between ">
-              <h1 className="font-semibold text-xl">Recurring Bills <span className="text-muted-foreground text-sm">(Demo)</span></h1>
+              <h1 className="font-semibold text-xl">
+                Recurring Bills{" "}
+                <span className="text-muted-foreground text-sm">(Demo)</span>
+              </h1>
               <Link
                 className="flex items-center gap-2 text-[#8f8f8f] font-semibold hover:underline"
                 href={`/recurring-bills`}
