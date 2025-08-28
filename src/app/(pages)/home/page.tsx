@@ -41,8 +41,8 @@ export default async function Home() {
   console.log(getTransaction, getBudgets, spent);
 
   return (
-    <div className="flex h-screen">
-      <div className="w-full mx-10">
+    <div className="w-full ">
+      <div className=" mx-10">
         <nav>
           <Navbar />
         </nav>
@@ -90,7 +90,7 @@ export default async function Home() {
           </div>
         </div>
 
-        <div className="m-10 pb-10 columns-2 space-y-5">
+        <div className="m-10 pb-10 columns-1 lg:columns-2 space-y-5">
           {/* Pots */}
           <div className="bg-white rounded-lg p-7 break-inside-avoid">
             <nav className="flex items-center justify-between ">
@@ -147,7 +147,7 @@ export default async function Home() {
                 See Details <TiArrowSortedDown className="-rotate-90" />
               </Link>
             </nav>
-            <div className=" w-full grid grid-cols-10 gap-4 my-4 rounded-lg ">
+            <div className="w-full grid grid-cols-1 lg:grid-cols-10 gap-4 my-4 rounded-lg">
               {getBudgets.length == 0 ? (
                 <span className="flex px-7 py-4 text-nowrap items-center gap-2 text-[#8f8f8f] font-semibold">
                   No Data Provided.
@@ -165,7 +165,7 @@ export default async function Home() {
                         return (
                           <div key={b.id} className="flex items-center gap-2">
                             <div
-                              className="w-1 h-10 rounded-lg"
+                              className="w-1 h-10 rounded-lg shrink-0"
                               style={{ backgroundColor: b.theme || "black" }}
                             />
                             <div>
@@ -187,7 +187,7 @@ export default async function Home() {
           </div>
           {/* Transactions */}
           <div className="bg-white rounded-lg p-7 break-inside-avoid">
-            <nav className="flex items-center justify-between ">
+            <nav className="flex items-center justify-between">
               <h1 className="font-semibold text-xl">Transactions</h1>
               <Link
                 className="flex items-center gap-2 text-[#8f8f8f] font-semibold hover:underline"
@@ -202,35 +202,40 @@ export default async function Home() {
                   No Data Provided.
                 </span>
               ) : (
-                <Table className="w-full">
-                  <TableBody className="">
+                <Table className="w-full table-fixed">
+                  <TableBody>
                     {getTransaction
                       .sort(
                         (a, b) =>
                           new Date(b.date).getTime() -
                           new Date(a.date).getTime()
                       )
-                      .map((transaction) => {
-                        return (
-                          <TableRow
-                            key={transaction.id}
-                            className="hover:bg-gray-100 transition-colors"
+                      .map((transaction) => (
+                        <TableRow
+                          key={transaction.id}
+                          className="hover:bg-gray-100 transition-colors"
+                        >
+                          <TableCell className="font-medium text-black p-2 text-lg whitespace-normal break-words">
+                            {transaction.transactionTitle}
+                          </TableCell>
+                          <TableCell className="text-[#818181] p-2 text-sm whitespace-normal break-words">
+                            {transaction.category}
+                          </TableCell>
+                          <TableCell className="text-[#818181] p-2 text-sm whitespace-normal">
+                            {transaction.date.slice(0, 10)}
+                          </TableCell>
+                          <TableCell
+                            className={`text-right font-medium text-lg p-2 whitespace-normal ${
+                              transaction.amount > 0
+                                ? "text-green-500"
+                                : "text-red-500"
+                            }`}
                           >
-                            <TableCell className="font-medium text-[black] p-4 text-[17px]">
-                              {transaction.transactionTitle}
-                            </TableCell>
-                            <TableCell className=" text-[#818181] p-4">
-                              {transaction.category}
-                            </TableCell>
-                            <TableCell className=" text-[#818181] p-4">
-                              {transaction.date.slice(0, 10)}
-                            </TableCell>
-                            <TableCell className="text-right text-green-600 font-medium text-[17px] p-4">
-                              +${transaction.amount.toFixed(2)}
-                            </TableCell>
-                          </TableRow>
-                        );
-                      })
+                            {transaction.amount > 0 ? "+" : "-"}$
+                            {Math.abs(transaction.amount).toFixed(2)}
+                          </TableCell>
+                        </TableRow>
+                      ))
                       .slice(0, 4)}
                   </TableBody>
                 </Table>
