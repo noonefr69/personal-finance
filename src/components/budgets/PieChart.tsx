@@ -82,7 +82,7 @@ export function ChartPieDonutText({ transactionsByCategory }: any) {
       <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square max-h-[250px]"
+          className="mx-auto aspect-square w-full max-h-[250px]"
         >
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>

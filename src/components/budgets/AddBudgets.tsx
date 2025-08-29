@@ -31,7 +31,7 @@ export default function AddTransactions() {
   return (
     <div>
       <Dialog>
-        <DialogTrigger className="cursor-pointer w-full flex items-center justify-center gap-3 bg-gray-800 text-white rounded-lg py-3 px-4 text-md font-semibold shadow-sm hover:bg-gray-900 transition">
+        <DialogTrigger className="cursor-pointer w-full flex items-center justify-center gap-3 bg-gray-800 text-white rounded-lg py-3 px-4 text-sm md:text-base font-semibold shadow-sm hover:bg-gray-900 transition">
           +Add New Budget
         </DialogTrigger>
         <DialogContent>

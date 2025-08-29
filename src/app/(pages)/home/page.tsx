@@ -42,7 +42,7 @@ export default async function Home() {
 
   return (
     <div className="w-full ">
-      <div className=" mx-10">
+      <div className="m-8 md:mx-10">
         <nav>
           <Navbar />
         </nav>

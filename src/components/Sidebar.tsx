@@ -103,13 +103,13 @@ export default function Sidebar() {
             </svg>
           </Link>
         </div>
-        <div className="lg:space-y-2 flex lg:flex-col lg:mt-32 justify-around items-end mx-10 lg:m-0 lg:pr-10 lg:items-start">
+        <div className="lg:space-y-2 flex lg:flex-col lg:mt-32 justify-around items-end mx-5 md:mx-10 lg:m-0 lg:pr-10 lg:items-start">
           {navLinks.map((navLink, index) => {
             return (
               <Link
                 key={index}
                 href={navLink.href}
-                className={`flex flex-col items-center justify-center lg:flex-row lg:justify-start lg:items-center duration-300 w-full h-16 lg:h-fit mt-4 lg:mt-0 lg:gap-3 lg:w-full font-semibold text-lg lg:pl-12 lg:py-3 lg:rounded-r-lg lg:mr-4 
+                className={`flex flex-col items-center justify-center lg:flex-row lg:justify-start lg:items-center duration-300 w-full h-12 md:h-16 lg:h-fit mt-4 lg:mt-0 lg:gap-3 lg:w-full font-semibold text-lg lg:pl-12 lg:py-3 lg:rounded-r-lg lg:mr-4 
     ${
       isActive === navLink.href
         ? `text-black bg-white border-b-4 border-b-green-600 lg:border-b-0 rounded-t-lg lg:rounded-t-none ${

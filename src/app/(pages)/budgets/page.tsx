@@ -20,9 +20,9 @@ export default async function Budgets() {
   }, {} as Record<string, number>);
 
   return (
-    <div className="">
-      <div className="flex items-center justify-between m-10">
-        <h1 className="text-4xl font-semibold">Budgets</h1>
+    <div className="pb-10">
+      <div className="flex items-center justify-between m-8 lg:m-10">
+        <h1 className="text-3xl md:text-4xl font-semibold">Budgets</h1>
         <AddBedgets />
       </div>
 
@@ -31,8 +31,8 @@ export default async function Budgets() {
           You haven't created a budget yet.{" "}
         </div>
       ) : (
-        <div className="grid grid-cols-9 gap-4 m-10">
-          <div className="col-span-3 h-fit bg-white rounded-lg p-7">
+        <div className="flex flex-col lg:flex-row gap-4 m-8 lg:m-10">
+          <div className="lg:col-span-3 col-span-full bg-white rounded-lg p-10 lg:p-7 flex-2/6">
             <ChartPieDonutText
               transactionsByCategory={transactionsByCategory}
             />
@@ -70,7 +70,7 @@ export default async function Budgets() {
           </div>
 
           {/* DATA */}
-          <div className="col-span-6 space-y-5 pb-10">
+          <div className="lg:flex-4/6 space-y-5 pb-10">
             {getBedgets.map((b) => {
               const spent = transactionsByCategory[b.category] || 0;
 
@@ -126,7 +126,10 @@ export default async function Budgets() {
                       <div>
                         <h6 className="text-muted-foreground text-sm">Free</h6>
                         <h1 className="font-medium">
-                          ${(b.spend - spent).toFixed(2)}
+                          $
+                          {b.spend - spent < 0
+                            ? "0.00"
+                            : (b.spend - spent).toFixed(2)}
                         </h1>
                       </div>
                     </div>
