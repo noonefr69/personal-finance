@@ -47,10 +47,10 @@ export default async function Home() {
           <Navbar />
         </nav>
 
-        <div className="m-10 grid grid-cols-3 gap-4">
+        <div className="md:m-10 grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-[rgb(32,31,36)] text-white p-7 rounded-lg space-y-2">
             <h1 className="font-semibold">Current Balance</h1>
-            <span className="font-bold text-4xl">
+            <span className="font-bold text-3xl lg:text-4xl">
               $
               {(
                 getTransaction.reduce(
@@ -90,7 +90,7 @@ export default async function Home() {
           </div>
         </div>
 
-        <div className="m-10 pb-10 columns-1 lg:columns-2 space-y-5">
+        <div className="md:m-10 my-8 pb-32 lg:pb-10 columns-1 lg:columns-2 space-y-5">
           {/* Pots */}
           <div className="bg-white rounded-lg p-7 break-inside-avoid">
             <nav className="flex items-center justify-between ">
@@ -102,9 +102,9 @@ export default async function Home() {
                 See Details <TiArrowSortedDown className="-rotate-90" />
               </Link>
             </nav>
-            <div className="flex items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2">
               {" "}
-              <div className="p-4 flex items-center gap-4 my-4 bg-[rgb(248,244,240)] w-1/2 rounded-lg">
+              <div className="p-4 flex items-center gap-4 my-4 bg-[rgb(248,244,240)] col-span-1 rounded-lg">
                 <AiFillDollarCircle size={50} className="text-green-600" />
                 <div className="space-y-2">
                   <h1 className="font-semibold text-[#727272]">Pots</h1>
@@ -113,7 +113,7 @@ export default async function Home() {
                   </span>
                 </div>
               </div>
-              <div className="grid ml-2 grid-cols-2 gap-2 w-1/2  ">
+              <div className="grid ml-2 grid-cols-2 gap-2">
                 {getPots
                   .map((p) => {
                     return (
@@ -122,7 +122,7 @@ export default async function Home() {
                         key={p.id}
                       >
                         <div
-                          className="h-8 rounded-lg w-1"
+                          className="h-8 rounded-lg w-1 shrink-0"
                           style={{ backgroundColor: p.theme || "black" }}
                         />
                         <div>
@@ -147,19 +147,19 @@ export default async function Home() {
                 See Details <TiArrowSortedDown className="-rotate-90" />
               </Link>
             </nav>
-            <div className="w-full grid grid-cols-1 lg:grid-cols-10 gap-4 my-4 rounded-lg">
+            <div className="w-full flex flex-col items-center justify-center lg:grid lg:items-start lg:grid-cols-10 gap-4 my-4 rounded-lg ">
               {getBudgets.length == 0 ? (
                 <span className="flex px-7 py-4 text-nowrap items-center gap-2 text-[#8f8f8f] font-semibold">
                   No Data Provided.
                 </span>
               ) : (
                 <>
-                  <div className="h-fit col-span-6">
+                  <div className="h-fit w-full col-span-6">
                     <ChartPieDonutText
                       transactionsByCategory={transactionsByCategory}
                     />
                   </div>
-                  <div className="pb-7 col-span-3 space-y-2">
+                  <div className="pb-7 grid lg:grid-cols-1 h-fit w-full px-7 lg:px-0 grid-cols-2 lg:col-span-3 space-y-2">
                     {getBudgets
                       .map((b) => {
                         return (

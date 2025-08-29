@@ -10,8 +10,8 @@ export default async function Navbar() {
   }
 
   return (
-    <div className="flex items-center justify-between m-10">
-      <h1 className="text-4xl font-semibold">Overview</h1>
+    <div className="flex items-center justify-between my-10 md:m-10">
+      <h1 className="text-2xl md:text-4xl font-semibold">Overview</h1>
       <form
         className=""
         action={async () => {

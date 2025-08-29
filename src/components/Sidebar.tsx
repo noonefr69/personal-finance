@@ -28,20 +28,20 @@ export default function Sidebar() {
 
   return (
     <div
-      className={`bg-[#3300ff00] shrink-0 duration-300 rounded-r-lg overflow-hidden z-20 relative ${
-        isOpen ? "w-80 " : "w-[7.3rem]"
+      className={`bg-[#3300ff00] lg:shrink-0  duration-300 rounded-r-lg overflow-hidden z-20 relative ${
+        isOpen ? "lg:w-80 " : "lg:w-[7.3rem]"
       }`}
     >
       <div
-        className={`bg-[rgba(32,31,36)] duration-300 rounded-r-lg overflow-hidden z-20 fixed top-0 left-0 bottom-0 ${
-          isOpen ? "w-80" : "w-[7.3rem]"
+        className={`bg-[rgba(32,31,36)] duration-300 lg:rounded-r-lg lg:rounded-t-none rounded-t-lg overflow-hidden z-20 fixed lg:top-0 right-0 left-0 bottom-0 ${
+          isOpen ? "lg:w-80" : "lg:w-[7.3rem]"
         }`}
       >
-        <div className="m-10 border-l-4 border-l-transparent">
+        <div className="lg:m-10 border-l-4 border-l-transparent">
           <Link
             href={`/home`}
-            className={`absolute duration-300 cursor-pointer z-10 ${
-              isOpen ? "opacity-0" : "opacity-100"
+            className={`absolute duration-300 cursor-pointer hidden lg:block z-10 ${
+              isOpen ? "lg:opacity-0" : "lg:opacity-100"
             }`}
           >
             <svg
@@ -60,8 +60,8 @@ export default function Sidebar() {
           </Link>
           <Link
             href={`/home`}
-            className={`absolute duration-300 cursor-pointer z-10  ${
-              isOpen ? "opacity-100" : "opacity-0"
+            className={`absolute duration-300 hidden lg:block cursor-pointer z-10  ${
+              isOpen ? "lg:opacity-100" : "lg:opacity-0"
             }`}
           >
             <svg
@@ -103,19 +103,19 @@ export default function Sidebar() {
             </svg>
           </Link>
         </div>
-        <div className="space-y-2 mt-32">
+        <div className="lg:space-y-2 flex lg:flex-col lg:mt-32 justify-around items-end mx-10 lg:m-0 lg:pr-10 lg:items-start">
           {navLinks.map((navLink, index) => {
             return (
               <Link
                 key={index}
                 href={navLink.href}
-                className={`flex items-center duration-300 gap-3 font-semibold text-lg pl-10 pr-16 py-3 rounded-r-lg mr-4
+                className={`flex flex-col items-center justify-center lg:flex-row lg:justify-start lg:items-center duration-300 w-full h-16 lg:h-fit mt-4 lg:mt-0 lg:gap-3 lg:w-full font-semibold text-lg lg:pl-12 lg:py-3 lg:rounded-r-lg lg:mr-4 
     ${
       isActive === navLink.href
-        ? `text-black ${
-            isOpen ? "bg-white" : "bg-transparent"
-          } border-l-4 border-l-green-600`
-        : "text-[#909090] hover:text-white border-l-4 border-l-transparent"
+        ? `text-black bg-white border-b-4 border-b-green-600 lg:border-b-0 rounded-t-lg lg:rounded-t-none ${
+            isOpen ? "lg:bg-white" : "lg:bg-transparent"
+          } lg:border-l-4 lg:border-l-green-600`
+        : "text-[#909090] hover:text-white lg:border-l-4 lg:border-l-transparent"
     }
   `}
               >
@@ -127,8 +127,8 @@ export default function Sidebar() {
                   {navLink.sign}
                 </span>
                 <span
-                  className={`text-nowrap duration-300 ${
-                    isOpen ? "opacity-100" : "opacity-0"
+                  className={`lg:text-nowrap hidden md:block duration-300 text-center text-md  ${
+                    isOpen ? "lg:opacity-100" : "lg:opacity-0"
                   }`}
                 >
                   {navLink.label}
@@ -137,7 +137,7 @@ export default function Sidebar() {
             );
           })}
         </div>
-        <div className={`absolute bottom-4`}>
+        <div className={`absolute bottom-4 hidden lg:block`}>
           <button
             onClick={() => setIsOpen(!isOpen)}
             className={`flex items-center text-[#909090] cursor-pointer hover:text-white duration-300 gap-3 font-semibold text-lg pl-10 pr-16 py-3 rounded-r-lg mr-4 `}
