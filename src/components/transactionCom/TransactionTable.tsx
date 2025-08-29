@@ -17,33 +17,30 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PiSortAscendingFill } from "react-icons/pi";
 import { FaFilter } from "react-icons/fa";
 
-export default function TransactionTable() {
-  const [transactions, setTransactions] = useState<any[]>([]);
+type TransactionType = {
+  id: number;
+  amount: number;
+  date: string;
+  transactionTitle: string;
+  category: string;
+};
+
+type TransactionTableProps = {
+  transactions: TransactionType[];
+};
+
+export default function TransactionTable({
+  transactions,
+}: TransactionTableProps) {
   const [search, setSearch] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [err, setErr] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState("Latest");
   const [filterBy, setFilterBy] = useState("All");
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        setLoading(true);
-        const getTransactions = await getTransactionAction();
-        setTransactions(getTransactions);
-      } catch (error: any) {
-        setErr(error.message || "Something went wrong");
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchData();
-  }, []);
+  console.log(transactions);
 
   let filteredTransactions = transactions
     // search filter
@@ -75,15 +72,6 @@ export default function TransactionTable() {
   } else if (sortBy === "Lowest") {
     filteredTransactions.sort((a, b) => a.amount - b.amount);
   }
-
-  if (err) return <div>Something went wrong: {err}</div>;
-
-  if (loading)
-    return (
-      <div className="flex justify-center items-center m-10 p-7 rounded-lg h-[calc(100vh-20vh)] bg-white">
-        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-gray-900 mr-4"></div>
-      </div>
-    );
 
   return (
     <div className="m-8 mb-36 lg:m-10 bg-white rounded-lg duration-300 overflow-auto min-h-[calc(100vh-21vh)] max-h-[calc(100vh-19vh)]  p-10">
