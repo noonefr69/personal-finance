@@ -196,9 +196,9 @@ export default async function Home() {
                 See Details <TiArrowSortedDown className="-rotate-90" />
               </Link>
             </nav>
-            <div className="flex items-center gap-4 mt-4 py-7 rounded-lg">
+            <div className="flex items-center gap-4 justify-center lg:justify-start mt-4 py-7 rounded-lg">
               {getTransaction.length == 0 ? (
-                <span className="flex  text-nowrap items-center gap-2 text-[#8f8f8f] font-semibold">
+                <span className="flex  text-nowrap items-center text-center gap-2 text-[#8f8f8f] font-semibold">
                   No Data Provided.
                 </span>
               ) : (
