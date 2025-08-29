@@ -1,4 +1,4 @@
-"use client";
+"use client"; // 👈 اضافه کن بالای فایل
 
 import * as React from "react";
 import { TrendingUp } from "lucide-react";
@@ -22,66 +22,23 @@ import { getBudgetsAction } from "@/actions/handleBudget";
 
 export const description = "A donut chart with text";
 
-const chartData = [
-  { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-  { browser: "firefox", visitors: 287, fill: "var(--color-firefox)" },
-  { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-  { browser: "other", visitors: 190, fill: "var(--color-other)" },
-];
-
-const chartConfig = {
-  visitors: {
-    label: "Visitors",
-  },
-  chrome: {
-    label: "Chrome",
-    color: "var(--chart-1)",
-  },
-  safari: {
-    label: "Safari",
-    color: "var(--chart-2)",
-  },
-  firefox: {
-    label: "Firefox",
-    color: "var(--chart-3)",
-  },
-  edge: {
-    label: "Edge",
-    color: "var(--chart-4)",
-  },
-  other: {
-    label: "Other",
-    color: "var(--chart-5)",
-  },
-} satisfies ChartConfig;
-
-export function ChartPieDonutText({ transactionsByCategory }: any) {
-  const [chartData, setChartData] = React.useState<any[]>([]);
-
+export function ChartPieDonutText({ transactionsByCategory, budgets }: any) {
   const totalSpend = Object.values(transactionsByCategory).reduce(
     (a, b) => a + b,
     0
   );
 
-  React.useEffect(() => {
-    async function fetchData() {
-      const budgets = await getBudgetsAction();
-      const format = budgets.map((b: any) => ({
-        name: b.category,
-        value: b.spend,
-        fill: b.theme || "var(--chart-1)",
-      }));
-      setChartData(format);
-    }
-    fetchData();
-  }, []);
+  const chartData = budgets.map((b: any) => ({
+    name: b.category,
+    value: b.spend,
+    fill: b.theme || "var(--chart-1)",
+  }));
 
   return (
     <Card className="flex flex-col border-none outline-none shadow-none">
       <CardContent className="flex-1 pb-0">
         <ChartContainer
-          config={chartConfig}
+          config={chartData}
           className="mx-auto aspect-square w-full max-h-[250px]"
         >
           <ResponsiveContainer width="100%" height="100%">

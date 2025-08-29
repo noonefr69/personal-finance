@@ -32,9 +32,10 @@ export default async function Budgets() {
         </div>
       ) : (
         <div className="flex flex-col lg:flex-row gap-4 m-8 lg:m-10">
-          <div className="lg:col-span-3 col-span-full bg-white rounded-lg p-10 lg:p-7 flex-2/6">
+          <div className="lg:col-span-3 lg:h-fit col-span-full bg-white rounded-lg p-10 lg:p-7 lg:flex-2/6">
             <ChartPieDonutText
               transactionsByCategory={transactionsByCategory}
+              budgets={getBedgets}
             />
             <div className="flex mb-5">
               <span className="font-semibold text-xl">Spending Summary</span>

@@ -157,6 +157,7 @@ export default async function Home() {
                   <div className="h-fit w-full col-span-6">
                     <ChartPieDonutText
                       transactionsByCategory={transactionsByCategory}
+                      budgets={getBudgets}
                     />
                   </div>
                   <div className="pb-7 grid lg:grid-cols-1 h-fit w-full px-7 lg:px-0 grid-cols-2 lg:col-span-3 space-y-2">
