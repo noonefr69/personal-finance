@@ -6,11 +6,11 @@ export default function Transactions() {
   return (
     <div className="">
       <div className="flex items-center justify-between m-10">
-        <h1 className="text-4xl font-semibold">Transactions</h1>
+        <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold">Transactions</h1>
         <AddTransactions />
       </div>
 
-      <div>
+      <div className="">
         <TransactionTable />
       </div>
     </div>

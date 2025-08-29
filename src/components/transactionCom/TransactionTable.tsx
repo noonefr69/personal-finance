@@ -18,6 +18,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useEffect, useState } from "react";
+import { PiSortAscendingFill } from "react-icons/pi";
+import { FaFilter } from "react-icons/fa";
 
 export default function TransactionTable() {
   const [transactions, setTransactions] = useState<any[]>([]);
@@ -84,21 +86,26 @@ export default function TransactionTable() {
     );
 
   return (
-    <div className="m-10 bg-white rounded-lg duration-300 overflow-auto min-h-[calc(100vh-21vh)] max-h-[calc(100vh-19vh)]  p-10">
-      <div className="mb-10 flex items-center justify-between">
+    <div className="m-8 mb-36 lg:m-10 bg-white rounded-lg duration-300 overflow-auto min-h-[calc(100vh-21vh)] max-h-[calc(100vh-19vh)]  p-10">
+      <div className="mb-10 flex items-center gap-3 lg:justify-between">
         <input
           type="text"
-          className="border-[1px] w-1/3 font-semibold rounded-lg px-3 py-2 border-gray-600 duration-300 outline-offset-4 outline-transparent focus:outline-black"
+          className="border-[1px] w-2/3 lg:w-1/3 font-semibold rounded-lg px-3 py-2 border-gray-600 duration-300 outline-offset-4 outline-transparent focus:outline-black"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search Transaction"
         />
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-3 lg:gap-5">
           <div className="flex items-center gap-3">
-            <h1 className="font-medium text-gray-500">Sort by</h1>
+            <h1 className="font-medium text-gray-500 hidden lg:flex">
+              Sort by
+            </h1>
             <Select onValueChange={(val) => setSortBy(val)}>
-              <SelectTrigger className="w-[180px] cursor-pointer">
+              <SelectTrigger className="w-[180px] cursor-pointer hidden lg:flex">
                 <SelectValue placeholder="Latest" />
+              </SelectTrigger>
+              <SelectTrigger className="w-fit cursor-pointer flex lg:hidden  border-none shadow-none">
+                <PiSortAscendingFill className="" size={60} />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="Latest">Latest</SelectItem>
@@ -112,10 +119,15 @@ export default function TransactionTable() {
           </div>
 
           <div className="flex items-center gap-3">
-            <h1 className="font-medium text-gray-500">Filter by Category</h1>
+            <h1 className="font-medium text-gray-500 hidden lg:flex">
+              Filter by Category
+            </h1>
             <Select onValueChange={(val) => setFilterBy(val)}>
-              <SelectTrigger className="w-[180px] cursor-pointer">
+              <SelectTrigger className="w-[180px] cursor-pointer hidden lg:flex">
                 <SelectValue placeholder="All" />
+              </SelectTrigger>
+              <SelectTrigger className="w-fit cursor-pointer flex lg:hidden  border-none shadow-none">
+                <FaFilter size={60} />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="All">All</SelectItem>
@@ -132,53 +144,58 @@ export default function TransactionTable() {
           </div>
         </div>
       </div>
-      <Table className="">
-        <TableCaption>
-          {transactions.length == 0 ? "No Data Provided" : "Transaction"}
-        </TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead className=" text-[#939393] p-4">
-              Recipient / Sender
-            </TableHead>
-            <TableHead className=" text-[#939393] p-4">Category</TableHead>
-            <TableHead className=" text-[#939393] p-4">
-              Transaction Date
-            </TableHead>
-            <TableHead className="text-right text-[#939393] p-4">
-              Amount
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody className="">
-          {filteredTransactions.map((transaction) => {
-            return (
-              <TableRow
-                key={transaction.id}
-                className="hover:bg-gray-100 transition-colors"
-              >
-                <TableCell className="font-medium text-[black] p-4 text-[17px]">
-                  {transaction.transactionTitle}
-                </TableCell>
-                <TableCell className=" text-[#818181] p-4">
-                  {transaction.category}
-                </TableCell>
-                <TableCell className=" text-[#818181] p-4">
-                  {transaction.date.slice(0, 10)}
-                </TableCell>
-                <TableCell
-                  className={`text-right font-medium text-[17px] p-4 ${
-                    transaction.amount > 0 ? "text-green-600" : "text-red-600"
-                  } !important`}
+
+      <div className="overflow-x-auto">
+        <Table className="table-fixed ">
+          <TableCaption>
+            {transactions.length == 0 ? "No Data Provided" : "Transaction"}
+          </TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="text-[#939393] p-4 whitespace-normal break">
+                Recipient / Sender
+              </TableHead>
+              <TableHead className="text-[#939393] p-4 whitespace-normal break">
+                Category
+              </TableHead>
+              <TableHead className="text-[#939393] p-4 whitespace-normal break">
+                Transaction Date
+              </TableHead>
+              <TableHead className="text-right text-[#939393] p-4 whitespace-normal break">
+                Amount
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody className="">
+            {filteredTransactions.map((transaction) => {
+              return (
+                <TableRow
+                  key={transaction.id}
+                  className="hover:bg-gray-100 transition-colors"
                 >
-                  {transaction.amount > 0 ? "+" : "-"}$
-                  {Math.abs(transaction.amount).toFixed(2)}
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
+                  <TableCell className="font-medium text-[black] p-4 text-[17px] whitespace-normal break">
+                    {transaction.transactionTitle}
+                  </TableCell>
+                  <TableCell className=" text-[#818181] p-4 whitespace-normal break-words">
+                    {transaction.category}
+                  </TableCell>
+                  <TableCell className=" text-[#818181] p-4 whitespace-normal break-words">
+                    {transaction.date.slice(0, 10)}
+                  </TableCell>
+                  <TableCell
+                    className={`text-right font-medium text-[17px] p-4 ${
+                      transaction.amount > 0 ? "text-green-600" : "text-red-600"
+                    } !important`}
+                  >
+                    {transaction.amount > 0 ? "+" : "-"}$
+                    {Math.abs(transaction.amount).toFixed(2)}
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 }

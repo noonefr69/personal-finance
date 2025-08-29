@@ -26,7 +26,7 @@ export default function AddTransactions() {
   return (
     <div>
       <Dialog>
-        <DialogTrigger className="cursor-pointer w-full flex items-center justify-center gap-3 bg-gray-800 text-white rounded-lg py-3 px-4 text-md font-semibold shadow-sm hover:bg-gray-900 transition">
+        <DialogTrigger className="cursor-pointer w-full flex items-center justify-center text-[12px] md:text-base gap-3 bg-gray-800 text-white rounded-lg py-3 px-4 text-md font-semibold shadow-sm hover:bg-gray-900 transition">
           +Add New Transaction
         </DialogTrigger>
         <DialogContent>
