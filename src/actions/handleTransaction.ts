@@ -27,12 +27,12 @@ export async function getTransactionAction() {
   }).lean();
 
   return getTransaction.map((t) => ({
-    id: t._id as unknown as string,
+    id: t._id.toString(), 
     transactionTitle: t.transactionTitle,
     category: t.category,
     amount: t.amount,
     date: t.date instanceof Date ? t.date.toISOString() : String(t.date),
-  })) as GetTransactionType[];
+  }));
 }
 
 export async function addTransactionAction(formData: FormData) {

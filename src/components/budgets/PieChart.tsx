@@ -12,23 +12,45 @@ import {
 
 export const description = "A donut chart with text";
 
-export function ChartPieDonutText({ transactionsByCategory, budgets }: any) {
+type ChartProp = {
+  category: string;
+  spend: number;
+  theme: string;
+};
+
+type ChartPieDonutTextProps = {
+  transactionsByCategory: Record<string, number>;
+  budgets: ChartProp[];
+};
+
+export function ChartPieDonutText({
+  transactionsByCategory,
+  budgets,
+}: ChartPieDonutTextProps) {
   const totalSpend = (Object.values(transactionsByCategory) as number[]).reduce(
     (a, b) => a + b,
     0
   );
 
-  const chartData = budgets.map((b: any) => ({
+  const chartData = budgets.map((b: ChartProp) => ({
     name: b.category,
     value: b.spend,
     fill: b.theme || "var(--chart-1)",
   }));
 
+  const chartConfig = budgets.reduce((acc, b) => {
+    acc[b.category] = {
+      label: b.category,
+      color: b.theme || "var(--chart-1)",
+    };
+    return acc;
+  }, {} as Record<string, { label: string; color: string }>);
+
   return (
     <Card className="flex flex-col border-none outline-none shadow-none">
       <CardContent className="flex-1 pb-0">
         <ChartContainer
-          config={chartData}
+          config={chartConfig}
           className="mx-auto aspect-square w-full max-h-[250px]"
         >
           <ResponsiveContainer width="100%" height="100%">
