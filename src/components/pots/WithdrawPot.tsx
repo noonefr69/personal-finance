@@ -44,7 +44,7 @@ export default function Withdraw({
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Withdraw from "{potName}"</DialogTitle>
+          <DialogTitle>Withdraw from &quot;{potName}&quot;</DialogTitle>
           <DialogDescription>
             Withdraw from your pot to put money back in your main balance. This
             will reduce the amount you have in this pot.

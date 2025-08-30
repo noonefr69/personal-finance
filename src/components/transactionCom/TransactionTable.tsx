@@ -1,6 +1,5 @@
 "use client";
 
-import { getTransactionAction } from "@/actions/handleTransaction";
 import {
   Table,
   TableBody,
@@ -20,17 +19,10 @@ import {
 import { useState } from "react";
 import { PiSortAscendingFill } from "react-icons/pi";
 import { FaFilter } from "react-icons/fa";
-
-type TransactionType = {
-  id: number;
-  amount: number;
-  date: string;
-  transactionTitle: string;
-  category: string;
-};
+import { GetTransactionType } from "@/actions/handleTransaction";
 
 type TransactionTableProps = {
-  transactions: TransactionType[];
+  transactions: GetTransactionType[];
 };
 
 export default function TransactionTable({
@@ -40,9 +32,7 @@ export default function TransactionTable({
   const [sortBy, setSortBy] = useState("Latest");
   const [filterBy, setFilterBy] = useState("All");
 
-  console.log(transactions);
-
-  let filteredTransactions = transactions
+  const filteredTransactions = transactions
     // search filter
     .filter((t) =>
       t.transactionTitle.toLowerCase().includes(search.toLowerCase())

@@ -1,12 +1,15 @@
 "use client";
 
-import { useState } from "react";
-
 export default function RecurringBillsPage() {
-  const [bills, setBills] = useState([
-    { name: "Internet", amount: 400, frequency: "Monthly", dueDate: "2025-09-01" },
+  const bills = [
+    {
+      name: "Internet",
+      amount: 400,
+      frequency: "Monthly",
+      dueDate: "2025-09-01",
+    },
     { name: "Rent", amount: 1500, frequency: "Monthly", dueDate: "2025-09-05" },
-  ]);
+  ];
 
   return (
     <div className="p-6">

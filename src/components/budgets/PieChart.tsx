@@ -1,29 +1,19 @@
-"use client"; // 👈 اضافه کن بالای فایل
+"use client";
 
 import * as React from "react";
-import { TrendingUp } from "lucide-react";
 import { Label, Pie, PieChart, ResponsiveContainer } from "recharts";
 
+import { Card, CardContent } from "@/components/ui/card";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { getBudgetsAction } from "@/actions/handleBudget";
 
 export const description = "A donut chart with text";
 
 export function ChartPieDonutText({ transactionsByCategory, budgets }: any) {
-  const totalSpend = Object.values(transactionsByCategory).reduce(
+  const totalSpend = (Object.values(transactionsByCategory) as number[]).reduce(
     (a, b) => a + b,
     0
   );
@@ -78,7 +68,11 @@ export function ChartPieDonutText({ transactionsByCategory, budgets }: any) {
                             className="fill-muted-foreground"
                           >
                             of $
-                            {chartData.reduce((acc, sec) => acc + sec.value, 0)}{" "}
+                            {chartData.reduce(
+                              (acc: number, sec: { value: number }) =>
+                                acc + sec.value,
+                              0
+                            )}{" "}
                             limit
                           </tspan>
                         </text>

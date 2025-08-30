@@ -28,7 +28,7 @@ export default async function Budgets() {
 
       {getBedgets.length <= 0 ? (
         <div className="m-10 text-muted-foreground font-medium">
-          You haven't created a budget yet.{" "}
+          You haven&apos;t created a budget yet.{" "}
         </div>
       ) : (
         <div className="flex flex-col lg:flex-row gap-4 m-8 lg:m-10">
@@ -152,7 +152,7 @@ export default async function Budgets() {
                         return t.category === b.category;
                       }).length == 0 ? (
                         <div className="text-muted-foreground text-center mt-4">
-                          You haven't made any spendings yet.
+                          You haven&apos;t made any spendings yet.
                         </div>
                       ) : (
                         getTransactions

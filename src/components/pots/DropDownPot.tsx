@@ -25,7 +25,6 @@ import {
 } from "@/components/ui/dialog";
 import { useState, useTransition } from "react";
 import { deletePot, updatePot } from "@/actions/handlePot";
-import ThemeSelector from "../budgets/ThemeSelector";
 
 type PotProps = {
   potName: string;

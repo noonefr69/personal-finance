@@ -22,8 +22,12 @@ export default function AddTransactions() {
       try {
         await addBudget(formData);
         formRef.current?.reset();
-      } catch (err: any) {
-        console.log(err.message || "Something went wrong");
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          console.log(err.message);
+        } else {
+          console.log("Something went wrong");
+        }
       }
     });
   }

@@ -5,6 +5,20 @@ import dbConnect from "@/lib/db";
 import Budget from "@/models/budgets";
 import { revalidatePath } from "next/cache";
 
+type GetBudgetsType = {
+  id: string;
+  category: string;
+  spend: number;
+  theme: string;
+};
+
+type BudgetDocument = {
+  _id: string | number;
+  category: string;
+  spend: number;
+  theme: string;
+};
+
 export async function getBudgetsAction() {
   const session = await auth();
 
@@ -16,14 +30,14 @@ export async function getBudgetsAction() {
 
   const getBudgets = await Budget.find({
     userEmail: session?.user?.email,
-  }).lean();
+  }).lean<BudgetDocument[]>();
 
-  return getBudgets.map((b: any) => ({
+  return getBudgets.map((b) => ({
     id: b._id.toString(),
     category: b.category,
     spend: b.spend,
     theme: b.theme,
-  }));
+  })) as GetBudgetsType[];
 }
 
 export async function addBudget(formData: FormData) {

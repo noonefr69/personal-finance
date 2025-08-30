@@ -3,15 +3,7 @@ import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import { AiFillDollarCircle } from "react-icons/ai";
 import { TiArrowSortedDown } from "react-icons/ti";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { getPotsAction } from "@/actions/handlePot";
 import { ChartPieDonutText } from "@/components/budgets/PieChart";
 import { getBudgetsAction } from "@/actions/handleBudget";
@@ -36,9 +28,7 @@ export default async function Home() {
     acc[transaction.category] += transaction.amount;
     return acc;
   }, {} as Record<string, number>);
-  const spent = transactionsByCategory;
-
-  console.log(getTransaction, getBudgets, spent);
+  // const spent = transactionsByCategory;
 
   return (
     <div className="w-full ">

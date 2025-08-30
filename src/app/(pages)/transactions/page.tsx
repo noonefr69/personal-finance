@@ -5,6 +5,7 @@ import React from "react";
 
 export default async function Transactions() {
   const transaction = await getTransactionAction();
+  
   return (
     <div className="">
       <div className="flex items-center justify-between m-10">

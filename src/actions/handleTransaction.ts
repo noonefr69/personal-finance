@@ -5,6 +5,14 @@ import dbConnect from "@/lib/db";
 import Transaction from "@/models/transaction";
 import { revalidatePath } from "next/cache";
 
+export type GetTransactionType = {
+  id: string;
+  transactionTitle: string;
+  category: string;
+  amount: number;
+  date: string;
+};
+
 export async function getTransactionAction() {
   const session = await auth();
 
@@ -18,13 +26,13 @@ export async function getTransactionAction() {
     userEmail: session?.user?.email,
   }).lean();
 
-  return getTransaction.map((t: any) => ({
-    id: t._id.toString(),
+  return getTransaction.map((t) => ({
+    id: t._id as unknown as string,
     transactionTitle: t.transactionTitle,
     category: t.category,
     amount: t.amount,
     date: t.date instanceof Date ? t.date.toISOString() : String(t.date),
-  }));
+  })) as GetTransactionType[];
 }
 
 export async function addTransactionAction(formData: FormData) {

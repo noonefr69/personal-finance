@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useRef, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 
 type PotProps = {
   id: string;
@@ -44,7 +44,7 @@ export default function AddMoneyPot({
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add to "{potName}"</DialogTitle>
+          <DialogTitle>Add to &quot;{potName}&quot;</DialogTitle>
           <DialogDescription>
             Add money to your pot to keep it separate from your main balance. As
             soon as you add this money, it will be deducted from your current
