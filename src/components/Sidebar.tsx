@@ -112,10 +112,10 @@ export default function Sidebar() {
                 className={`flex flex-col items-center justify-center lg:flex-row lg:justify-start lg:items-center duration-300 w-full h-12 md:h-16 lg:h-fit mt-4 lg:mt-0 lg:gap-3 lg:w-full font-semibold text-lg lg:pl-12 lg:py-3 lg:rounded-r-lg lg:mr-4 
     ${
       isActive === navLink.href
-        ? `text-black bg-white border-b-4 border-b-green-600 lg:border-b-0 rounded-t-lg lg:rounded-t-none ${
+        ? `text-black bg-white duration-300 border-b-4 border-b-green-600 lg:border-b-0 rounded-t-lg lg:rounded-t-none ${
             isOpen ? "lg:bg-white" : "lg:bg-transparent"
           } lg:border-l-4 lg:border-l-green-600`
-        : "text-[#909090] hover:text-white lg:border-l-4 lg:border-l-transparent"
+        : "text-[#909090] hover:text-white lg:border-l-4 lg:border-l-transparent border-b-4 lg:border-b-0 rounded-t-lg lg:rounded-t-none border-b-transparent duration-300"
     }
   `}
               >
