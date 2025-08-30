@@ -5,13 +5,14 @@ import dbConnect from "@/lib/db";
 import Pots from "@/models/pots";
 import { revalidatePath } from "next/cache";
 
-// type GetPotsType = {
-//   id: string;
-//   potName: string;
-//   amountPot: number;
-//   amountEx: number;
-//   theme: string;
-// };
+type PotType = {
+  _id: string; // after toString
+  potName: string;
+  amountPot: number;
+  amountEx: number;
+  theme: string;
+  userEmail: string;
+};
 
 export async function getPotsAction() {
   const session = await auth();
@@ -22,7 +23,7 @@ export async function getPotsAction() {
 
   const getPots = await Pots.find({
     userEmail: session?.user?.email,
-  }).lean();
+  }).lean<PotType[]>();
 
   return getPots.map((p) => ({
     id: p._id.toString(),

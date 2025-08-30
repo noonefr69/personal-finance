@@ -13,6 +13,15 @@ export type GetTransactionType = {
   date: string;
 };
 
+type TransactionType = {
+  _id: string;
+  transactionTitle: string;
+  category: string;
+  amount: number;
+  date: Date | string;
+  userEmail: string;
+};
+
 export async function getTransactionAction() {
   const session = await auth();
 
@@ -24,7 +33,7 @@ export async function getTransactionAction() {
 
   const getTransaction = await Transaction.find({
     userEmail: session?.user?.email,
-  }).lean();
+  }).lean<TransactionType[]>();
 
   return getTransaction.map((t) => ({
     id: t._id.toString(), 
