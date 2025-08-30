@@ -1,4 +1,10 @@
-"use client";
+import { Metadata } from "next";
+
+export const metadata = {
+  title: "Recurring Bills",
+  description:
+    "Keep track of your recurring bills and subscriptions so you never miss a payment and can plan your monthly budget with ease.",
+};
 
 export default function RecurringBillsPage() {
   const bills = [

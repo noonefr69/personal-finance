@@ -9,6 +9,13 @@ import { ChartPieDonutText } from "@/components/budgets/PieChart";
 import { getBudgetsAction } from "@/actions/handleBudget";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Home",
+  description:
+    "Your personal finance dashboard with an overview of budgets, transactions, pots, and recurring bills all in one place.",
+};
 
 export default async function Home() {
   const session = await auth();

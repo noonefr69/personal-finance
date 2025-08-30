@@ -4,6 +4,13 @@ import DropDownPot from "@/components/pots/DropDownPot";
 import React from "react";
 import AddMoneyPot from "@/components/pots/AddMoneyPot";
 import WithdrawPot from "@/components/pots/WithdrawPot";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Pots",
+  description:
+    "Organize your savings into dedicated pots to set aside money for goals, emergencies, or upcoming expenses.",
+};
 
 export default async function Pots() {
   const getPots = await getPotsAction();
@@ -16,7 +23,9 @@ export default async function Pots() {
       </div>
 
       {getPots.length <= 0 ? (
-        <div className="m-10 text-muted-foreground font-medium">No Data Provided.</div>
+        <div className="m-10 text-muted-foreground font-medium">
+          No Data Provided.
+        </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 m-8 lg:m-10 gap-4 pb-16 lg:pb-0">
           {getPots.map((p) => {

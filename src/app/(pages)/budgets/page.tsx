@@ -3,9 +3,16 @@ import { getTransactionAction } from "@/actions/handleTransaction";
 import AddBedgets from "@/components/budgets/AddBudgets";
 import DropDownBudget from "@/components/budgets/DropDownBudget";
 import { ChartPieDonutText } from "@/components/budgets/PieChart";
+import { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
 import { TiArrowSortedDown } from "react-icons/ti";
+
+export const metadata: Metadata = {
+  title: "Budgets",
+  description:
+    "Manage and track your personal budgets with clear insights into spending, savings, and financial goals.",
+};
 
 export default async function Budgets() {
   const getBedgets = await getBudgetsAction();
