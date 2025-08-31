@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "login",
-  description: "This is a E-commerce store built with Next.js",
+  title: "Login",
+  description: "Securely log in to your personal finance dashboard to track expenses, manage budgets, and reach your financial goals.",
 };
 
 export default function RootLayout({
