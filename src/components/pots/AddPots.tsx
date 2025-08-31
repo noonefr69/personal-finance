@@ -8,7 +8,7 @@ import {
   DialogTrigger,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { useRef, useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 import ThemeSelector from "../budgets/ThemeSelector";
 import { addPot } from "@/actions/handlePot";
 import toast from "react-hot-toast";
@@ -16,6 +16,7 @@ import toast from "react-hot-toast";
 export default function AddPots() {
   const [isPending, startTransition] = useTransition();
   const formRef = useRef<HTMLFormElement>(null);
+  const [inputVal, setInputVal] = useState("");
 
   function handleChange(formData: FormData) {
     startTransition(async () => {
@@ -60,11 +61,17 @@ export default function AddPots() {
                   type="text"
                   id="potName"
                   name="potName"
+                  value={inputVal}
+                  onChange={(e) => {
+                    setInputVal(e.target.value);
+                  }}
+                  maxLength={30}
                   placeholder="e.g Rainy Days"
                   className="border-[1px] text-[#8f8f8f] font-semibold rounded-lg p-3 border-gray-600 duration-300 outline-offset-4 outline-transparent focus:outline-black"
                 />
                 <span className="text-right text-[#8f8f8f] font-semibold text-sm">
-                  30 character left
+                  {30 - inputVal.length <= 0 ? "0" : 30 - inputVal.length}{" "}
+                  character left
                 </span>
               </div>
               <div className="flex flex-col space-y-2">

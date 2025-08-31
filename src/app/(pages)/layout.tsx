@@ -16,7 +16,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Sidebar />
       <div className=" w-[1550px] mx-auto">{children}</div>
       <Toaster
-        position="top-right"
+        position="top-center"
         toastOptions={{
           style: {
             minWidth: "320px", // ✅ set global width
@@ -24,7 +24,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             padding: "26px 20px", // ✅ set global padding
             borderRadius: "12px",
             fontSize: "18px",
-            textWrap: "nowrap"
+            textWrap: "nowrap",
           },
         }}
       />{" "}

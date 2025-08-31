@@ -10,11 +10,12 @@ import {
 import { DatePickerDemo } from "./DatePicker";
 import Selector from "../CategorySelector";
 import { addTransactionAction } from "@/actions/handleTransaction";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import toast from "react-hot-toast";
 
 export default function AddTransactions() {
   const [isPending, startTransition] = useTransition();
+  const [inputVal, setInputVal] = useState("");
 
   function handleChange(formData: FormData) {
     startTransition(async () => {
@@ -53,11 +54,17 @@ export default function AddTransactions() {
                   type="text"
                   id="transaction"
                   name="transaction"
+                  value={inputVal}
+                  onChange={(e) => {
+                    setInputVal(e.target.value);
+                  }}
+                  maxLength={30}
                   placeholder="e.g Urban Hub"
                   className="border-[1px] text-[#8f8f8f] font-semibold rounded-lg p-3 border-gray-600 duration-300 outline-offset-4 outline-transparent focus:outline-black"
                 />
                 <span className="text-right text-[#8f8f8f] font-semibold text-sm">
-                  30 character left
+                  {30 - inputVal.length <= 0 ? "0" : 30 - inputVal.length}{" "}
+                  character left
                 </span>
               </div>
               <div className="mt-5">
