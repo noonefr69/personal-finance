@@ -1,10 +1,15 @@
-import { Metadata } from "next";
+"use client";
 
-export const metadata = {
-  title: "Recurring Bills",
-  description:
-    "Keep track of your recurring bills and subscriptions so you never miss a payment and can plan your monthly budget with ease.",
-};
+// import { Metadata } from "next";
+import toast from "react-hot-toast";
+
+// export const metadata = {
+//   title: "Recurring Bills",
+//   description:
+//     "Keep track of your recurring bills and subscriptions so you never miss a payment and can plan your monthly budget with ease.",
+// };
+
+const notify = () => toast("Here is your toast.");
 
 export default function RecurringBillsPage() {
   const bills = [
@@ -40,6 +45,7 @@ export default function RecurringBillsPage() {
           ))}
         </tbody>
       </table>
+      <button onClick={notify}>Make me a toast</button>
     </div>
   );
 }

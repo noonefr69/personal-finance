@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/dialog";
 import { deleteBudget, updateBudget } from "@/actions/handleBudget";
 import { useState, useTransition } from "react";
+import toast from "react-hot-toast";
 
 type BudgetProps = {
   category: string;
@@ -58,15 +59,40 @@ export default function DropDownBudget({
   const [themePlace, setThemePlace] = useState(theme);
 
   function handleDelete() {
-    startTransition(() => {
-      deleteBudget(id);
+    startTransition(async () => {
+      try {
+        await deleteBudget(id);
+        toast.success("Budget deleted successfully!");
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          console.log(err.message);
+          toast.error(err.message);
+        } else {
+          console.log("Something went wrong");
+        }
+      }
     });
   }
 
   function handleUpdate() {
-    console.log(category, spend, theme);
-    startTransition(() => {
-      updateBudget(id, categoryPlace, spendPlace.toString(), themePlace);
+    startTransition(async () => {
+      try {
+        await updateBudget(
+          id,
+          categoryPlace,
+          spendPlace.toString(),
+          themePlace
+        );
+
+        toast.success("Budget updated successfully!");
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          console.log(err.message);
+          toast.error(err.message);
+        } else {
+          console.log("Something went wrong");
+        }
+      }
     });
   }
 

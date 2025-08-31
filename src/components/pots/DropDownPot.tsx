@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/dialog";
 import { useState, useTransition } from "react";
 import { deletePot, updatePot } from "@/actions/handlePot";
+import toast from "react-hot-toast";
 
 type PotProps = {
   potName: string;
@@ -58,15 +59,35 @@ export default function DropDownPot({
   const [themePlace, setThemePlace] = useState(theme);
 
   function handleDelete() {
-    startTransition(() => {
-      deletePot(id);
+    startTransition(async () => {
+      try {
+        await deletePot(id);
+        toast.success("Pots deleted successfully!");
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          console.log(err.message);
+          toast.error(err.message);
+        } else {
+          console.log("Something went wrong");
+        }
+      }
     });
   }
 
   function handleUpdate() {
     console.log(potNamePlace, amountPotPlace, theme);
-    startTransition(() => {
-      updatePot(id, potNamePlace, amountPotPlace, themePlace);
+    startTransition(async () => {
+      try {
+        await updatePot(id, potNamePlace, amountPotPlace, themePlace);
+        toast.success("Pots updated successfully!");
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          console.log(err.message);
+          toast.error(err.message);
+        } else {
+          console.log("Something went wrong");
+        }
+      }
     });
   }
 

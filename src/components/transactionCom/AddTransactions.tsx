@@ -11,15 +11,24 @@ import { DatePickerDemo } from "./DatePicker";
 import Selector from "../CategorySelector";
 import { addTransactionAction } from "@/actions/handleTransaction";
 import { useTransition } from "react";
+import toast from "react-hot-toast";
 
 export default function AddTransactions() {
   const [isPending, startTransition] = useTransition();
 
   function handleChange(formData: FormData) {
-    startTransition(() => {
-      addTransactionAction(formData).catch((err) => {
-        console.log(err.message || "Something went wrong");
-      });
+    startTransition(async () => {
+      try {
+        await addTransactionAction(formData);
+        toast.success("Transaction added successfully!");
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          console.log(err.message);
+          toast.error(err.message);
+        } else {
+          console.log("Something went wrong");
+        }
+      }
     });
   }
 

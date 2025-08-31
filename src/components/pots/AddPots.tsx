@@ -11,6 +11,7 @@ import {
 import { useRef, useTransition } from "react";
 import ThemeSelector from "../budgets/ThemeSelector";
 import { addPot } from "@/actions/handlePot";
+import toast from "react-hot-toast";
 
 export default function AddPots() {
   const [isPending, startTransition] = useTransition();
@@ -21,9 +22,12 @@ export default function AddPots() {
       try {
         await addPot(formData);
         formRef.current?.reset();
+
+        toast.success("Pot added successfully!");
       } catch (err: unknown) {
         if (err instanceof Error) {
           console.log(err.message);
+          toast.error(err.message);
         } else {
           console.log("Something went wrong");
         }

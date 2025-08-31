@@ -12,6 +12,7 @@ import { useRef, useTransition } from "react";
 import ThemeSelector from "./ThemeSelector";
 import CategorySelector from "../CategorySelector";
 import { addBudget } from "@/actions/handleBudget";
+import toast from "react-hot-toast";
 
 export default function AddTransactions() {
   const [isPending, startTransition] = useTransition();
@@ -22,9 +23,12 @@ export default function AddTransactions() {
       try {
         await addBudget(formData);
         formRef.current?.reset();
+
+        toast.success("Budget added successfully!");
       } catch (err: unknown) {
         if (err instanceof Error) {
           console.log(err.message);
+          toast.error(err.message);
         } else {
           console.log("Something went wrong");
         }

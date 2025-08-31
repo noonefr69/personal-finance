@@ -10,6 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useState, useTransition } from "react";
+import toast from "react-hot-toast";
 
 type PotProps = {
   id: string;
@@ -30,10 +31,21 @@ export default function AddMoneyPot({
   const [amountExU, setAmountExU] = useState(0);
 
   function handleUpdate() {
-    startTransition(() => {
-      updateAddMoneyPot(id, amountExU).then(() => {
+    startTransition(async () => {
+      try {
+        await updateAddMoneyPot(id, amountExU);
         setAmountExU(0);
-      });
+
+        toast.success("Money pot updated successfully!");
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          console.error(err.message);
+          toast.error(err.message);
+        } else {
+          console.error("Something went wrong");
+          toast.error("Something went wrong");
+        }
+      }
     });
   }
 
