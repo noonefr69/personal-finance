@@ -28,17 +28,17 @@ export default async function Budgets() {
 
   return (
     <div className="pb-10">
-      <div className="flex items-center justify-between m-8 lg:m-10">
+      <div className="flex items-center justify-between m-4 lg:m-10">
         <h1 className="text-3xl md:text-4xl font-semibold">Budgets</h1>
         <AddBedgets />
       </div>
 
       {getBedgets.length <= 0 ? (
-        <div className="m-10 text-muted-foreground font-medium">
+        <div className="m-4 lg:m-10 text-muted-foreground font-medium">
           You haven&apos;t created a budget yet.{" "}
         </div>
       ) : (
-        <div className="flex flex-col lg:flex-row gap-4 m-8 lg:m-10">
+        <div className="flex flex-col lg:flex-row gap-4 m-4 lg:m-10">
           <div className="lg:col-span-3 lg:h-fit col-span-full bg-white rounded-lg p-10 lg:p-7 lg:flex-2/6">
             <ChartPieDonutText
               transactionsByCategory={transactionsByCategory}

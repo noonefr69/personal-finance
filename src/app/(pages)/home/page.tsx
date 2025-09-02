@@ -39,12 +39,12 @@ export default async function Home() {
 
   return (
     <div className="w-full ">
-      <div className="m-8 md:mx-10">
+      <div className="m-4 md:mx-10">
         <nav>
           <Navbar />
         </nav>
 
-        <div className="md:m-10 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="m-0 md:m-10 grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-[rgb(32,31,36)] text-white p-7 rounded-lg space-y-2">
             <h1 className="font-semibold">Current Balance</h1>
             <span className="font-bold text-3xl lg:text-4xl">

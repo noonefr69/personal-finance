@@ -15,14 +15,14 @@ export default async function Transactions() {
 
   return (
     <div className="">
-      <div className="flex items-center justify-between m-10">
+      <div className="flex items-center justify-between m-4 lg:m-10">
         <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold">
           Transactions
         </h1>
         <AddTransactions />
       </div>
 
-      <div className="">
+      <div className="m-4 ">
         <TransactionTable transactions={transaction} />
       </div>
     </div>

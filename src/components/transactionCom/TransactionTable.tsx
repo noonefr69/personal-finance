@@ -25,6 +25,19 @@ type TransactionTableProps = {
   transactions: GetTransactionType[];
 };
 
+const themes = [
+  { name: "Red", value: "red", color: "bg-red-500" },
+  { name: "Blue", value: "blue", color: "bg-blue-500" },
+  { name: "Green", value: "green", color: "bg-green-500" },
+  { name: "Purple", value: "purple", color: "bg-purple-500" },
+  { name: "Orange", value: "orange", color: "bg-orange-500" },
+  { name: "Pink", value: "pink", color: "bg-pink-500" },
+  { name: "Teal", value: "teal", color: "bg-teal-500" },
+  { name: "Yellow", value: "yellow", color: "bg-yellow-500" },
+  { name: "Gray", value: "gray", color: "bg-gray-500" },
+  { name: "Indigo", value: "indigo", color: "bg-indigo-500" },
+];
+
 export default function TransactionTable({
   transactions,
 }: TransactionTableProps) {
@@ -64,7 +77,7 @@ export default function TransactionTable({
   }
 
   return (
-    <div className="m-8 mb-36 lg:m-10 bg-white rounded-lg duration-300 overflow-auto min-h-[calc(100vh-21vh)] max-h-[calc(100vh-19vh)]  p-10">
+    <div className="lg:m-10 bg-white rounded-lg overflow-auto duration-300 min-h-[calc(100vh-21vh)] max-h-[calc(100vh-19vh)] p-4 lg:p-10">
       <div className="mb-10 flex items-center gap-3 lg:justify-between">
         <input
           type="text"
@@ -123,23 +136,21 @@ export default function TransactionTable({
         </div>
       </div>
 
-      <div className="overflow-x-auto">
-        <Table className="table-fixed ">
+      <div className="hidden md:block w-full">
+        <Table className="">
           <TableCaption>
             {transactions.length == 0 ? "No Data Provided" : "Transaction"}
           </TableCaption>
           <TableHeader>
             <TableRow>
-              <TableHead className="text-[#939393] p-4 whitespace-normal break">
+              <TableHead className="text-[#939393] ">
                 Recipient / Sender
               </TableHead>
-              <TableHead className="text-[#939393] p-4 whitespace-normal break">
-                Category
-              </TableHead>
-              <TableHead className="text-[#939393] p-4 whitespace-normal break">
+              <TableHead className="text-[#939393] ">Category</TableHead>
+              <TableHead className="text-[#939393] ">
                 Transaction Date
               </TableHead>
-              <TableHead className="text-right text-[#939393] p-4 whitespace-normal break">
+              <TableHead className="text-right text-[#939393] ">
                 Amount
               </TableHead>
             </TableRow>
@@ -151,17 +162,17 @@ export default function TransactionTable({
                   key={transaction.id}
                   className="hover:bg-gray-100 transition-colors"
                 >
-                  <TableCell className="font-medium text-[black] p-4 text-[17px] whitespace-normal break">
+                  <TableCell className="font-medium text-[black] text-lg">
                     {transaction.transactionTitle}
                   </TableCell>
-                  <TableCell className=" text-[#818181] p-4 whitespace-normal break-words">
+                  <TableCell className=" text-[#818181]">
                     {transaction.category}
                   </TableCell>
-                  <TableCell className=" text-[#818181] p-4 whitespace-normal break-words">
+                  <TableCell className=" text-[#818181]">
                     {transaction.date.slice(0, 10)}
                   </TableCell>
                   <TableCell
-                    className={`text-right font-medium text-[17px] p-4 ${
+                    className={`text-right font-medium text-lg ${
                       transaction.amount > 0 ? "text-green-600" : "text-red-600"
                     } !important`}
                   >
@@ -173,6 +184,41 @@ export default function TransactionTable({
             })}
           </TableBody>
         </Table>
+      </div>
+
+      <div className="grid grid-col-1 md:grid-cols-2 md:hidden gap-4">
+        {filteredTransactions.map((t) => {
+          const randomTheme = themes[Math.floor(Math.random() * themes.length)];
+
+          return (
+            <div
+              key={t.id}
+              className="duration-300 hover:bg-gray-200 p-4 rounded-lg shadow"
+            >
+              <div className="flex items-center space-x-4 text-sm">
+                <div className="text-[black] font-semibold text-xl">
+                  {t.transactionTitle}
+                </div>
+
+                <div
+                  className={`text-[white] opacity-50 font-medium text-base py-1 px-2 duration-300 rounded-lg ${randomTheme.color}`}
+                >
+                  {t.category}
+                </div>
+              </div>
+              <div
+                className={` font-medium text-lg ${
+                  t.amount > 0 ? "text-green-600" : "text-red-600"
+                } !important`}
+              >
+                {t.amount > 0 ? "+" : "-"}${Math.abs(t.amount).toFixed(2)}
+              </div>
+              <div className="text-[#939393] font-medium ">
+                {t.date.slice(0, 10)}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

@@ -1,51 +1,34 @@
 "use client";
 
-// import { Metadata } from "next";
-import toast from "react-hot-toast";
+import { AlertCircleIcon, Construction } from "lucide-react";
+import { useRouter } from "next/navigation";
 
-// export const metadata = {
-//   title: "Recurring Bills",
-//   description:
-//     "Keep track of your recurring bills and subscriptions so you never miss a payment and can plan your monthly budget with ease.",
-// };
-
-const notify = () => toast("Here is your toast.");
-
-export default function RecurringBillsPage() {
-  const bills = [
-    {
-      name: "Internet",
-      amount: 400,
-      frequency: "Monthly",
-      dueDate: "2025-09-01",
-    },
-    { name: "Rent", amount: 1500, frequency: "Monthly", dueDate: "2025-09-05" },
-  ];
+export default function RecurringBills() {
+  const route = useRouter();
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Recurring Bills</h1>
-      <table className="w-full border">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="p-2">Name</th>
-            <th className="p-2">Amount</th>
-            <th className="p-2">Frequency</th>
-            <th className="p-2">Next Due</th>
-          </tr>
-        </thead>
-        <tbody>
-          {bills.map((bill, idx) => (
-            <tr key={idx} className="border-t">
-              <td className="p-2">{bill.name}</td>
-              <td className="p-2">${bill.amount}</td>
-              <td className="p-2">{bill.frequency}</td>
-              <td className="p-2">{bill.dueDate}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <button onClick={notify}>Make me a toast</button>
+    <div className="flex flex-col items-center justify-center min-h-screen p-6">
+      <div className="bg-white shadow-lg rounded-2xl p-10 text-center max-w-lg">
+        <div className="flex justify-center mb-6">
+          <AlertCircleIcon
+            size={80}
+            className="text-yellow-500 animate-pulse"
+          />
+        </div>
+        <h1 className="text-3xl font-bold text-gray-800 mb-4">
+          Recurring Bills
+        </h1>
+        <p className="text-gray-600 mb-6">
+          This page is currently under construction. We’re working hard to bring
+          you the recurring bills feature soon!
+        </p>
+        <button
+          onClick={() => route.push("/home")}
+          className="px-6 cursor-pointer py-2 rounded-lg bg-yellow-500 text-white font-semibold hover:bg-yellow-600 transition"
+        >
+          Go Back
+        </button>
+      </div>
     </div>
   );
 }

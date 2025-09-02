@@ -218,7 +218,13 @@ export default function DropDownPot({
                       type="submit"
                       className="px-4 py-2 w-fit bg-[#b60101] duration-300 hover:bg-[#dd0101] text-white cursor-pointer font-medium rounded-lg"
                     >
-                      {isPending ? "load" : "Yes"}
+                      {isPending ? (
+                        <div className="flex justify-center items-center">
+                          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-300 "></div>
+                        </div>
+                      ) : (
+                        "Yes"
+                      )}
                     </button>
                     <DialogClose className="px-4 py-2 bg-[rgb(253,236,218)] duration-300 hover:bg-[rgb(255,212,165)] cursor-pointer rounded-lg">
                       No

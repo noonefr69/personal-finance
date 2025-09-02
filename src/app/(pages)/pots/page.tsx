@@ -17,7 +17,7 @@ export default async function Pots() {
 
   return (
     <div>
-      <div className="flex items-center justify-between m-8 lg:m-10">
+      <div className="flex items-center justify-between m-4 lg:m-10">
         <h1 className="text-4xl font-semibold">Pots</h1>
         <AddPots />
       </div>
@@ -27,7 +27,7 @@ export default async function Pots() {
           No Data Provided.
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 m-8 lg:m-10 gap-4 pb-16 lg:pb-0">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 m-4 lg:m-10 gap-4 pb-16 lg:pb-0">
           {getPots.map((p) => {
             return (
               <div key={p.id} className="bg-white p-6 rounded-lg">
